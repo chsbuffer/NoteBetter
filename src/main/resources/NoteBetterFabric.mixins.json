@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.gmail.gorayan3838.notebetterfabric.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "NoteBlockMixin"
+  ],
+  "client": [
+    "client.SoundSystemMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

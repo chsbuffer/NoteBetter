@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "notebetterfabric",
+  "version": "${version}",
+  "name": "NoteBetterFabric",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/NoteBetterFabric/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.gmail.gorayan3838.notebetterfabric.client.NoteBetterFabricClient"
+    ],
+    "main": [
+      "com.gmail.gorayan3838.notebetterfabric.NoteBetterFabric"
+    ]
+  },
+  "mixins": [
+    "NoteBetterFabric.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.11.3",
+    "fabric": "*",
+    "minecraft": "1.16.5"
+  }
+}
