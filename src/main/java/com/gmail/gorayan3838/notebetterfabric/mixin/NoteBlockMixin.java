@@ -17,7 +17,6 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Mixin(NoteBlock.class)
 public class NoteBlockMixin {
@@ -25,7 +24,7 @@ public class NoteBlockMixin {
     @Redirect(method = "onSyncedBlockEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;playSound(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/sound/SoundEvent;Lnet/minecraft/sound/SoundCategory;FF)V"))
     private void injected(World world, @Nullable PlayerEntity player, BlockPos pos, SoundEvent sound, SoundCategory category, float volume, float pitch) {
         SoundConfig.Mapping[] mappings = NoteBetterFabric.CONFIG.getMappings();
-        List<SoundConfig.Mapping> filteredMappings = Arrays.stream(mappings).filter(mapping -> world.getBlockState(pos.down()).getBlock().equals(Registry.BLOCK.get(new Identifier(mapping.getBlock())))).collect(Collectors.toList());
+        List<SoundConfig.Mapping> filteredMappings = Arrays.stream(mappings).filter(mapping -> world.getBlockState(pos.down()).getBlock().equals(Registry.BLOCK.get(new Identifier(mapping.getBlock())))).toList();
         filteredMappings.forEach(mapping -> {
             SoundConfig.Sound soundInfo = mapping.getSound();
             world.playSound(
