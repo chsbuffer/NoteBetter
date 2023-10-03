@@ -7,7 +7,7 @@ import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.minecraft.server.command.CommandManager;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 
 public class NoteBetterFabric implements ModInitializer {
 
@@ -30,7 +30,7 @@ public class NoteBetterFabric implements ModInitializer {
                             .executes(context -> {
                                 AutoConfig.getConfigHolder(SoundConfig.class).load();
                                 CONFIG = AutoConfig.getConfigHolder(SoundConfig.class).get();
-                                context.getSource().sendFeedback(new TranslatableText("commands.notebetterfabric.reload.success"), true);
+                                context.getSource().sendFeedback(Text.translatable("commands.notebetterfabric.reload.success"), true);
                                 return 1;
                             })
                     );

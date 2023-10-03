@@ -21,9 +21,10 @@
     "NoteBetterFabric.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.13.3",
+    "fabricloader": ">=0.14.22",
     "fabric": "*",
-    "minecraft": "1.18.x",
-    "java": ">=17"
+    "minecraft": ">=1.19.3",
+    "java": ">=17",
+    "cloth-config": "*"
   }
 }
