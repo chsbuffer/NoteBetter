@@ -25,9 +25,11 @@ public class NoteBlockMixin {
 
     @Redirect(method = "onSyncedBlockEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;playSound(Lnet/minecraft/entity/player/PlayerEntity;DDDLnet/minecraft/registry/entry/RegistryEntry;Lnet/minecraft/sound/SoundCategory;FFJ)V"))
     private void injected(World world, @Nullable PlayerEntity player, double x, double y, double z, RegistryEntry<SoundEvent> sound, SoundCategory category, float volume, float pitch, long seed) {
-        BlockPos pos = new BlockPos((int) x, (int) y, (int) z);
+        BlockPos pos = new BlockPos((int) Math.floor(x), (int) Math.floor(y), (int) Math.floor(z));
         SoundConfig.Mapping[] mappings = NoteBetterFabric.CONFIG.getMappings();
-        List<SoundConfig.Mapping> filteredMappings = Arrays.stream(mappings).filter(mapping -> world.getBlockState(pos.down()).getBlock().equals(Registries.BLOCK.get(new Identifier(mapping.getBlock())))).toList();
+        List<SoundConfig.Mapping> filteredMappings = Arrays.stream(mappings)
+                .filter(mapping -> world.getBlockState(pos.down()).getBlock().equals(Registries.BLOCK.get(new Identifier(mapping.getBlock()))))
+                .toList();
         filteredMappings.forEach(mapping -> {
             SoundConfig.Sound soundInfo = mapping.getSound();
             world.playSound(
