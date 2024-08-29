@@ -12,16 +12,13 @@
   "entrypoints": {
     "client": [
       "com.gmail.gorayan3838.notebetterfabric.client.NoteBetterFabricClient"
-    ],
-    "main": [
-      "com.gmail.gorayan3838.notebetterfabric.NoteBetterFabric"
     ]
   },
   "mixins": [
     "NoteBetterFabric.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.14.22",
+    "fabricloader": "*",
     "fabric": "*",
     "minecraft": ">=1.19.3",
     "java": ">=17",

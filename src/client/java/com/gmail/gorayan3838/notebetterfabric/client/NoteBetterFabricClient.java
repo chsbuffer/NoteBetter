@@ -1,36 +1,38 @@
-package com.gmail.gorayan3838.notebetterfabric;
+package com.gmail.gorayan3838.notebetterfabric.client;
 
 import com.gmail.gorayan3838.notebetterfabric.config.SoundConfig;
-import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
-import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
-import net.minecraft.server.command.CommandManager;
+import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.minecraft.text.Text;
 
-public class NoteBetterFabric implements ModInitializer {
+@Environment(EnvType.CLIENT)
+public class NoteBetterFabricClient implements ClientModInitializer {
 
     public static final String modID = "notebetterfabric";
 
     public static SoundConfig CONFIG;
 
     @Override
-    public void onInitialize() {
+    public void onInitializeClient() {
         AutoConfig.register(SoundConfig.class, GsonConfigSerializer::new);
         CONFIG = AutoConfig.getConfigHolder(SoundConfig.class).get();
         registerCommand();
     }
 
     public void registerCommand() {
-        CommandRegistrationCallback.EVENT.register((dispatcher, b) -> {
-            LiteralArgumentBuilder builder = CommandManager.literal("notebetter")
+        ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
+            var builder = ClientCommandManager.literal("notebetter")
                     .requires(serverCommandSource -> serverCommandSource.hasPermissionLevel(2))
-                    .then(CommandManager.literal("reload")
+                    .then(ClientCommandManager.literal("reload")
                             .executes(context -> {
                                 AutoConfig.getConfigHolder(SoundConfig.class).load();
                                 CONFIG = AutoConfig.getConfigHolder(SoundConfig.class).get();
-                                context.getSource().sendFeedback(Text.translatable("commands.notebetterfabric.reload.success"), true);
+                                context.getSource().sendFeedback(Text.translatable("commands.notebetterfabric.reload.success"));
                                 return 1;
                             })
                     );

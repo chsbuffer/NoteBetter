@@ -1,11 +1,11 @@
 package com.gmail.gorayan3838.notebetterfabric.config;
 
-import com.gmail.gorayan3838.notebetterfabric.NoteBetterFabric;
+import com.gmail.gorayan3838.notebetterfabric.client.NoteBetterFabricClient;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
 
-@Config(name = NoteBetterFabric.modID)
+@Config(name = NoteBetterFabricClient.modID)
 public class SoundConfig implements ConfigData {
 
     @ConfigEntry.Gui.CollapsibleObject

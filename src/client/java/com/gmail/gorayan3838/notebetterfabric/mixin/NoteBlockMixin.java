@@ -1,8 +1,7 @@
 package com.gmail.gorayan3838.notebetterfabric.mixin;
 
-import com.gmail.gorayan3838.notebetterfabric.NoteBetterFabric;
+import com.gmail.gorayan3838.notebetterfabric.client.NoteBetterFabricClient;
 import com.gmail.gorayan3838.notebetterfabric.config.SoundConfig;
-import net.minecraft.block.Block;
 import net.minecraft.block.NoteBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -26,7 +25,7 @@ public class NoteBlockMixin {
     @Redirect(method = "onSyncedBlockEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;playSound(Lnet/minecraft/entity/player/PlayerEntity;DDDLnet/minecraft/registry/entry/RegistryEntry;Lnet/minecraft/sound/SoundCategory;FFJ)V"))
     private void injected(World world, @Nullable PlayerEntity player, double x, double y, double z, RegistryEntry<SoundEvent> sound, SoundCategory category, float volume, float pitch, long seed) {
         BlockPos pos = new BlockPos((int) Math.floor(x), (int) Math.floor(y), (int) Math.floor(z));
-        SoundConfig.Mapping[] mappings = NoteBetterFabric.CONFIG.getMappings();
+        SoundConfig.Mapping[] mappings = NoteBetterFabricClient.CONFIG.getMappings();
         List<SoundConfig.Mapping> filteredMappings = Arrays.stream(mappings)
                 .filter(mapping -> world.getBlockState(pos.down()).getBlock().equals(Registries.BLOCK.get(new Identifier(mapping.getBlock()))))
                 .toList();
