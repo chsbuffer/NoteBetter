@@ -27,7 +27,7 @@ public class NoteBlockMixin {
         BlockPos pos = new BlockPos((int) Math.floor(x), (int) Math.floor(y), (int) Math.floor(z));
         SoundConfig.Mapping[] mappings = NoteBetterFabricClient.CONFIG.getMappings();
         List<SoundConfig.Mapping> filteredMappings = Arrays.stream(mappings)
-                .filter(mapping -> world.getBlockState(pos.down()).getBlock().equals(Registries.BLOCK.get(new Identifier(mapping.getBlock()))))
+                .filter(mapping -> world.getBlockState(pos.down()).getBlock().equals(Registries.BLOCK.get(Identifier.of(mapping.getBlock()))))
                 .toList();
         filteredMappings.forEach(mapping -> {
             SoundConfig.Sound soundInfo = mapping.getSound();
@@ -36,7 +36,7 @@ public class NoteBlockMixin {
                     x,
                     y,
                     z,
-                    SoundEvent.of(new Identifier(soundInfo.getSound())),
+                    SoundEvent.of(Identifier.of(soundInfo.getSound())),
                     SoundCategory.RECORDS,
                     soundInfo.getVolume(),
                     soundInfo.getPitch() * pitch,
